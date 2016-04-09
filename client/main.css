@@ -1,8 +1,8 @@
 /* CSS declarations go here */
 body {
   font-family: sans-serif;
-  background-color: #315481;
-  background-image: linear-gradient(to bottom, #315481, #918e82 100%);
+  background-color: grey;
+  background-image: linear-gradient(to bottom, grey, white 100%);
   background-attachment: fixed;
 
   position: absolute;
@@ -18,7 +18,7 @@ body {
 }
 
 .container {
-  max-width: 600px;
+  max-width: 1250px;
   margin: 0 auto;
   min-height: 100%;
   background: white;
@@ -26,7 +26,7 @@ body {
 
 header {
   background: #d2edf4;
-  background-image: linear-gradient(to bottom, #d0edf5, #e1e5f0 100%);
+  background-image: linear-gradient(to bottom, grey, white 100%);
   padding: 20px 15px 15px 15px;
   position: relative;
 }
@@ -49,7 +49,7 @@ form {
   position: relative;
 }
 
-.new-task input {
+.search input {
   box-sizing: border-box;
   padding: 10px 0;
   background: transparent;
@@ -59,7 +59,7 @@ form {
   font-size: 1em;
 }
 
-.new-task input:focus{
+.search input:focus{
   outline: 0;
 }
 
