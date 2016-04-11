@@ -57,3 +57,41 @@ Template.body.events({
           }*/
 });
 }
+
+if (Meteor.isServer) {
+    Meteor.startup(function () {
+        // code to run on server at startup
+    });
+
+    Meteor.methods({
+        'searchContributions': function (user, url) {
+            var contributionsList;
+
+            console.log("TEST1Server");
+
+            response = HTTP.get(url, {
+                params: {
+                    "action": "query",
+                    "list": "usercontribs",
+                    "format": "json",
+                    "uclimit": 10,
+                    "ucuser": user,
+                    "ucdir": "older",
+                    "ucnamespace": 0,
+                    "ucprop": "ids|title|timestamp|comment|size|sizediff",
+                    "converttitles": "",
+                    "continue": ""
+                    /*"callback": "jQuery18205457338357208769_1424888853148",
+                     "_": "1424888864479"*/
+                }
+
+            });
+
+            console.log("TEST4Server");
+            console.log(response.data.query.usercontribs);
+            console.log(response.data.query.usercontribs.length);
+
+            //Pour obtenir les objets de contributions, il faut faire response.data.query.usercontribs
+        }
+    });
+}
