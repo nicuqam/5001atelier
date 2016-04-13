@@ -33,6 +33,24 @@ if (Meteor.isServer){
             }
 
             //Pour obtenir les objets de contributions, il faut faire response.data.query.usercontribs
+        },
+        
+        
+        
+	'getArticleText': function(url, revisionID) {
+          
+          text = HTTP.get( url, {
+            params: {
+                    "action": "parse",
+                    "format": "json",
+                    "oldid": revisionID,
+                    "prop": "text" 
+            }
+          });
+          
+          return text;
+
         }
+        
     });
 }
