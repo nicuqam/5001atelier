@@ -42,8 +42,6 @@ Template.body.events({
 
     var user = $("#user").val().trim();
     var url = $("#url").val().trim();
-    console.log(user);
-    console.log(url);
 
     //////////////////////////////////////////////////////////////////////////////
     //LOGIQUE de code a refaire pour determiner l'adresse de l'API du lien du site
@@ -56,6 +54,10 @@ Template.body.events({
 
     var result = Meteor.call('searchContributions', user, url);
     console.log("CONTRIBUTIONS :\n" + result);
+
+    if(result != null){
+      Meteor.call('buildArticles', result);
+    }
   },
 
           /*'click button#advSearch': function () {
