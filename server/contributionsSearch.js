@@ -40,7 +40,7 @@ if (Meteor.isServer) {
                 ////////////////////////////////////////////////////////////////////////////////
                 //Le revId est harcoded présentement. Besoin de modif pour rendre le client maître de la redId qui va être affichée.
                 ////////////////////////////////////////////////////////////////////////////////
-                Meteor.call('selectArticle', 715531747);
+                Meteor.call('selectArticle', 713927272);
             }
 
             return response.data.query.usercontribs;
@@ -93,8 +93,10 @@ if (Meteor.isServer) {
             console.log( Articles.find({ title: "James Deen" }).fetch() );
             console.log( Articles.find({ revId: revisionID }).fetch() );
             
-            newText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).revId);
-            oldText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).parentId);)
+            newText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).url, 
+                                                    Articles.findOne({ revId: revisionID}).revId);
+            oldText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).url,
+                                                    Articles.findOne({ revId: revisionID}).parentId);
             //console.log(newText);
             
             
@@ -103,10 +105,10 @@ if (Meteor.isServer) {
         },
         
         
-        'getArticleText': function (revisionID) {
+        'getArticleText': function (url, revisionID) {
             console.log("getArticleText");
             
-            text = HTTP.get(Articles.findOne({ revId: revisionID}).url, {
+            text = HTTP.get(url, {
                 params: {
                     "action": "parse",
                     "format": "json",
