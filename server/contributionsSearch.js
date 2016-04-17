@@ -30,7 +30,9 @@ if (Meteor.isServer) {
 
             if (response.data.query.usercontribs.length > 0) {
                 console.log(response.data.query.usercontribs);
-                Meteor.call('buildArticles', response.data.query.usercontribs);
+                Meteor.call('buildArticles', url, response.data.query.usercontribs);
+                
+                Meteor.call('selectArticle', 715531747);
             }
 
             return response.data.query.usercontribs;
@@ -39,7 +41,7 @@ if (Meteor.isServer) {
         },
 
         //Construction de la BD d'objets
-        'buildArticles': function (searchResults) {
+        'buildArticles': function (url, searchResults) {
             console.log("buildArticles start")
 
             for (i = 0; i < searchResults.length; i++) {
@@ -69,11 +71,25 @@ if (Meteor.isServer) {
                     size,
                     sizeDiff,
                     createdAt: new Date(),
+                    url: url
                 });
             }
         },
 
-        'getArticleText': function (url, revisionID) {
+        'selectArticle': function(revisionID) {
+            console.log("selectArticle start");
+            
+            var newText;
+            var oldText;
+            
+            console.log( Articles.find({ title: "James Deen" }).fetch() );
+            console.log( Articles.find({ revId: revisionID }).fetch() );
+            
+            //newText = Meteor.call('getArticleText', revisionID);
+        },
+        
+        
+        'getArticleText': function (revisionID) {
 
             text = HTTP.get(url, {
                 params: {
