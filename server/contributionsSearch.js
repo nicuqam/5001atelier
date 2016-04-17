@@ -1,3 +1,5 @@
+import { Articles } from '../imports/api/articles.js';
+
 if (Meteor.isServer) {
     Meteor.methods({
         'searchContributions': function (user, url) {
@@ -28,7 +30,7 @@ if (Meteor.isServer) {
 
             if (response.data.query.usercontribs.length > 0) {
                 console.log(response.data.query.usercontribs);
-                //Meteor.call('buildArticles', response.data.query.usercontribs);
+                Meteor.call('buildArticles', response.data.query.usercontribs);
             }
 
             return response.data.query.usercontribs;
@@ -40,9 +42,9 @@ if (Meteor.isServer) {
         'buildArticles': function (searchResults) {
             console.log("buildArticles start")
 
-            for (i = 0; i < searchResults.data.query.usercontribs.length; i++) {
-                var result = searchResults.data.query.usercontribs[i];
-                var userId = result.userId;
+            for (i = 0; i < searchResults.length; i++) {
+                var result = searchResults[i];
+                var userId = result.userid;
                 var user = result.user;
                 var pageId = result.pageid;
                 var revId = result.revid;
@@ -53,8 +55,6 @@ if (Meteor.isServer) {
                 var comment = result.comment;
                 var size = result.size;
                 var sizeDiff = result.sizediff;
-
-                console.log(title);
 
                 Articles.insert({
                     userId,
