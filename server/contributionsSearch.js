@@ -43,7 +43,7 @@ if (Meteor.isServer) {
                 Meteor.call('selectArticle', 713927272);
             }
 
-            return response.data.query.usercontribs;
+            //return response.data.query.usercontribs;
 
             //Pour obtenir les objets de contributions, il faut faire response.data.query.usercontribs
         },
@@ -90,6 +90,8 @@ if (Meteor.isServer) {
             var newText;
             var oldText;
             
+            var analysisTable;
+            
             console.log( Articles.find({ title: "James Deen" }).fetch() );
             console.log( Articles.find({ revId: revisionID }).fetch() );
             
@@ -97,18 +99,16 @@ if (Meteor.isServer) {
                                                     Articles.findOne({ revId: revisionID}).revId);
             oldText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).url,
                                                     Articles.findOne({ revId: revisionID}).parentId);
-            //console.log(newText);
             
-            
-            
-            //newText = Meteor.call('getArticleText', revisionID);
+            analysisTable = Meteor.call('getDiff', oldText, newText);
+            console.log(analysisTable);
         },
         
         
         'getArticleText': function (url, revisionID) {
             console.log("getArticleText");
             
-            text = HTTP.get(url, {
+            response = HTTP.get(url, {
                 params: {
                     "action": "parse",
                     "format": "json",
@@ -116,9 +116,31 @@ if (Meteor.isServer) {
                     "prop": "text"
                 }
             });
+            
+            //console.log(response);
+            //console.log("***RESPONSE.PARSE***");
+            //console.log(response.data.parse.text["*"]); //Est-ce les bonnes données extractées?
 
-            return text;
+            return response.data.parse.text["*"];
 
+        },
+        
+        
+        // Copyright VOGG 2013
+        'strip_tags': function (input, allowed) {
+          // http://kevin.vanzonneveld.net
+          allowed = (((allowed || "") + "").toLowerCase().match(/<[a-z][a-z0-9]*>/g) || []).join(''); // making sure the allowed arg is a string containing only tags in lowercase (<a><b><c>)
+          var tags = /<\/?([a-z][a-z0-9]*)\b[^>]*>/gi, commentsAndPhpTags = /<!--[\s\S]*?-->|<\?(?:php)?[\s\S]*?\?>/gi;
+          return input.replace(commentsAndPhpTags, '').replace(tags, function ($0, $1) {
+            return allowed.indexOf('<' + $1.toLowerCase() + '>') > -1 ? $0 : '';
+          });
+        },
+        'getDiff': function (text1, text2) {
+            var dmp = new diff_match_patch();
+            var res = dmp.diff_main( Meteor.call('strip_tags', (text1)), Meteor.call('strip_tags', (text2)));
+            dmp.diff_cleanupSemantic(res);
+            //$("#contr_value").text("Levenshtein distance value: " + dmp.diff_levenshtein(res));
+            return dmp.diff_prettyHtml(res);
         }
 
     });
