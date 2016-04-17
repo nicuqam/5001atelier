@@ -16,7 +16,7 @@ Template.article.events({
   //Affichage des details et de l'article
   'click'(){
     var activeArticle = Articles.findOne(this._id);
-    Session.set('article', activeArticle.title);
+    Session.set('title', activeArticle.title);
     Session.set('url', $("#url").val().trim());
     Session.set('size', activeArticle.size);
     Session.set('sizeDiff', activeArticle.sizeDiff);
