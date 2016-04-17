@@ -4,6 +4,11 @@ if (Meteor.isServer) {
     Meteor.methods({
         'searchContributions': function (user, url) {
 
+            /*
+            À MODIFIER RAPIDEMENT : WIPE DE LA BD À CHAQUE RECHERCHE
+            */
+            Articles.remove({});
+
             console.log("TEST1Server");
 
             console.log(user);
@@ -57,6 +62,7 @@ if (Meteor.isServer) {
                 var comment = result.comment;
                 var size = result.size;
                 var sizeDiff = result.sizediff;
+                var createdAt = new Date();
 
                 Articles.insert({
                     userId,
@@ -70,7 +76,7 @@ if (Meteor.isServer) {
                     comment,
                     size,
                     sizeDiff,
-                    createdAt: new Date(),
+                    createdAt,
                     url: url
                 });
             }
