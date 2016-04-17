@@ -24,6 +24,8 @@ Template.body.events({
     Session.set('url', "");
     Session.set('size', "");
     Session.set('sizeDiff', "");
+    
+    Session.set('articleText', "");
 
     var user = $("#user").val().trim();
     var url = $("#url").val().trim();

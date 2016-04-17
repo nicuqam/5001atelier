@@ -10,6 +10,7 @@ if (Meteor.isClient){
   Session.setDefault("url", "");
   Session.setDefault("size", "");
   Session.setDefault("sizeDiff","");
+  Session.setDefault("articleText","");
 }
 
 Template.article.events({
@@ -20,6 +21,9 @@ Template.article.events({
     Session.set('url', $("#url").val().trim());
     Session.set('size', activeArticle.size);
     Session.set('sizeDiff', activeArticle.sizeDiff);
+    
+    Session.set('articleText', Meteor.call('selectArticle', Articles.findOne(this._id).revId));
+    console.log(Meteor.call('selectArticle', Articles.findOne(this._id).revId));
   }
 });
 
@@ -38,5 +42,9 @@ Template.details.helpers({
 
   'sizeDiff' : function(){
     return Session.get('sizeDiff');
+  },
+  
+  'articleText' : function(){
+      return Session.get('articleText');
   }
 });
