@@ -32,11 +32,6 @@ Template.body.events({
     //////////////////////////////////////////////////////////////////////////////
 
     var result = Meteor.call('searchContributions', user, url);
-    console.log("CONTRIBUTIONS :\n" + result);
-
-    if(result != null){
-      Meteor.call('buildArticles', result);
-    }
   },
 
           /*'click button#advSearch': function () {
