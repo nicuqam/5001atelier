@@ -14,4 +14,10 @@ Template.article.events({
   'click .delete'() {
     Articles.remove(this._id);
   },
+  //Affichage des details et de l'article
+  'click'(){
+    //var article = Articles.find(this._id);
+    //console.log(article.title);
+    //var article =
+  }
 });

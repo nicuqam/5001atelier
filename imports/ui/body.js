@@ -14,27 +14,6 @@ Template.body.helpers({
 
 if (Meteor.isClient){
 Template.body.events({
-  /*
-  'submit .search'(event) {
-    // Prevent default browser form submit
-    event.preventDefault();
-
-    // Get value from form element
-    const target = event.target;
-    const text = target.text.value;
-    
-    // Insert a task into the collection
-    
-    Articles.insert({
-      text,
-      createdAt: new Date(), // current time
-    });
-    
-
-    // Clear form
-    target.text.value = '';
-  },
-  */
 
   'submit .search, click button#search'(event) {
     // Prevent default browser form submit

@@ -14,36 +14,43 @@
         <button id="search">Search</button>
     </header>
 
-    <div id="results">
-        <ul class="tabs" data-tab>
-            <li class="tab-title active"><a href="#list_articles">Articles</a></li>
-            <li class="tab-title"><a href="#list_talks">Talks</a></li>
-        </ul>
+    <div id="container">
+        <div id="resultsContainer">
+            <div id="results">
+                <ul class="tabs" data-tab>
+                    <li class="tab-title active"><a href="#list_articles">Articles</a></li>
+                    <li class="tab-title"><a href="#list_talks">Talks</a></li>
+                </ul>
 
-        <div class="tabs-content">
-            <div class="content active" id="list_articles">
-                <div id="articles">
-                    <ul>
-                        {{#each articles}}
-                            {{> article}}
-                        {{/each}}
-                    </ul>
-                </div>
-                <div id="info_articles">
-                    <ul class="tabs" data-tab>
-                        <li class="tab-title active"><a href="#detail_container">Details</a></li>
-                        <li class="tab-title"><a href="#article_container">Article</a></li>
-                    </ul>
+                <div class="tabs-content">
+                    <div class="content active" id="list_articles">
+                        <div id="articles">
+                            <ul>
+                                {{#each articles}}
+                                {{> article}}
+                                {{/each}}
+                            </ul>
+                        </div>
+                    </div>
 
-                    <div class="tabs-content">
-                        <div class="content active" id="detail_container">Test details</div>
-                        <div class="content" id="article_container">Test articles</div>
+                    <div class="content" id="list_talks">
+                        <div id="talks">Test Talk</div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <div class="content" id="list_talks">
-                <div id="talks">Test Talk</div>
+        <div id="infosContainer">
+            <div id="info_articles">
+                <ul class="tabs" data-tab>
+                    <li class="tab-title active"><a href="#detail_container">Details</a></li>
+                    <li class="tab-title"><a href="#article_container">Article</a></li>
+                </ul>
+
+                <div class="tabs-content">
+                    <div class="content active" id="detail_container">Test details</div>
+                    <div class="content" id="article_container">Test article</div>
+                </div>
             </div>
         </div>
     </div>
