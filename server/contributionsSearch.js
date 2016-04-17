@@ -37,6 +37,9 @@ if (Meteor.isServer) {
                 console.log(response.data.query.usercontribs);
                 Meteor.call('buildArticles', url, response.data.query.usercontribs);
                 
+                ////////////////////////////////////////////////////////////////////////////////
+                //Le revId est harcoded présentement. Besoin de modif pour rendre le client maître de la redId qui va être affichée.
+                ////////////////////////////////////////////////////////////////////////////////
                 Meteor.call('selectArticle', 715531747);
             }
 
@@ -62,7 +65,6 @@ if (Meteor.isServer) {
                 var comment = result.comment;
                 var size = result.size;
                 var sizeDiff = result.sizediff;
-                var createdAt = new Date();
 
                 Articles.insert({
                     userId,
@@ -76,7 +78,7 @@ if (Meteor.isServer) {
                     comment,
                     size,
                     sizeDiff,
-                    createdAt,
+                    createdAt: new Date(),
                     url: url
                 });
             }
@@ -91,13 +93,20 @@ if (Meteor.isServer) {
             console.log( Articles.find({ title: "James Deen" }).fetch() );
             console.log( Articles.find({ revId: revisionID }).fetch() );
             
+            newText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).revId);
+            oldText = Meteor.call('getArticleText', Articles.findOne({ revId: revisionID}).parentId);)
+            //console.log(newText);
+            
+            
+            
             //newText = Meteor.call('getArticleText', revisionID);
         },
         
         
         'getArticleText': function (revisionID) {
-
-            text = HTTP.get(url, {
+            console.log("getArticleText");
+            
+            text = HTTP.get(Articles.findOne({ revId: revisionID}).url, {
                 params: {
                     "action": "parse",
                     "format": "json",
