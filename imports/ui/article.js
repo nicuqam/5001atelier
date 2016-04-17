@@ -4,6 +4,12 @@ import { Articles } from '../api/articles.js';
 
 import './article.html';
 
+
+
+if (Meteor.isClient){
+  Session.setDefault('size', "TEST");
+}
+
 Template.article.events({
   'click .toggle-checked'() {
     // Set the checked property to the opposite of its current value
@@ -15,9 +21,15 @@ Template.article.events({
     Articles.remove(this._id);
   },
   //Affichage des details et de l'article
+
   'click'(){
-    //var article = Articles.find(this._id);
-    //console.log(article.title);
-    //var article =
+    var activeArticle = Articles.findOne(this._id);
+    console.log(activeArticle.size);
+  }
+});
+
+Template.details.helpers({
+  'size' : function(){
+    //return Session.get();
   }
 });
