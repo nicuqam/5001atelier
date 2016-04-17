@@ -1,14 +1,17 @@
 <template name="article">
     <li>
-        <button class="delete">&times;</button>
         <span class="text">{{title}}</span>
     </li>
 </template>
 
 <template name="details">
     <span>
+        Article : '{{title}}' on {{url}}
+        <br>
         Size : {{size}}
         <br>
-        SizeDiff :
+        SizeDiff : {{sizeDiff}}
+        <br>
+
     </span>
 </template>

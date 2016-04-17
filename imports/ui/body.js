@@ -19,6 +19,12 @@ Template.body.events({
     // Prevent default browser form submit
     event.preventDefault();
 
+    //Reset of the details
+    Session.set('title', "");
+    Session.set('url', "");
+    Session.set('size', "");
+    Session.set('sizeDiff', "");
+
     var user = $("#user").val().trim();
     var url = $("#url").val().trim();
 
