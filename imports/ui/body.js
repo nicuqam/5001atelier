@@ -22,14 +22,10 @@ Template.body.events({
     //Reset of the details
     Session.set('title', "");
     Session.set('url', "");
+    Session.set('articleInfos', "");
     Session.set('size', "");
     Session.set('sizeDiff', "");
-    
-    //////////////////////////////////////////////////////////////
-    //LE TEMPLATE NE SE REMPLI PAS DE LA VALEUR DÉSIRÉE///////////
     Session.set('articleText', "");
-    //////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////
 
     var user = $("#user").val().trim();
     var url = $("#url").val().trim();

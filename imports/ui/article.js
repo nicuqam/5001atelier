@@ -5,58 +5,67 @@ import { Articles } from '../api/articles.js';
 import './article.html';
 
 
-if (Meteor.isClient){
-  Session.setDefault("title", "");
-  Session.setDefault("url", "");
-  Session.setDefault("size", "");
-  Session.setDefault("sizeDiff","");
-  Session.setDefault("articleText", "");
+if (Meteor.isClient) {
+    //Champs vides par défaut
+    Session.setDefault('title', "");
+    Session.setDefault('url', "");
+    Session.setDefault('size', "");
+    Session.setDefault('sizeDiff', "");
+    Session.setDefault('articleInfos', "");
+    Session.setDefault('articleText', "");
 }
 
 Template.article.events({
-  //Affichage des details et de l'article
-  'click'(){
-    var activeArticle = Articles.findOne(this._id);
-    Session.set('title', activeArticle.title);
-    Session.set('url', $("#url").val().trim());
-    Session.set('size', activeArticle.size);
-    Session.set('sizeDiff', activeArticle.sizeDiff);
-    
-    //////////////////////////////////////////////////////////////
-    //LE TEMPLATE NE SE REMPLI PAS DE LA VALEUR DÉSIRÉE///////////
-    Session.set('articleText', "TEST article");
-    //////////////////////////////////////////////////////////////
-    //////////////////////////////////////////////////////////////
-    
-    
-    //Appel de méthode permettant de faire le diff-match-patch de la révision 
-    //sélectionnée et son parent
-    Meteor.call('selectArticle', Articles.findOne(this._id).revId, function(error, result) {
-      console.log(result);
-      //Session.set('articleText', result);
-    });
-    
-  }
+    //Affichage des details
+    'click' (){
+        var activeArticle = Articles.findOne(this._id);
+        Session.set('title', activeArticle.title);
+        Session.set('url', $("#url").val().trim());
+
+        var articleInfos = "'" + activeArticle.title + "' on " + $("#url").val().trim();
+        Session.set('articleInfos', articleInfos);
+
+        Session.set('size', activeArticle.size);
+        Session.set('sizeDiff', activeArticle.sizeDiff);
+
+        //Affichage de l'article
+        Meteor.call('selectArticle', Articles.findOne(this._id).revId, function (error, result) {
+            console.log(result);
+            //Session.set('articleText', result);
+        });
+
+        /////////////////////////////
+        //C'EST ICI QUE ÇA SE PASSE//
+        /////////////////////////////
+        var textArticle = "test article à changer par méthode qui renvoie le dit texte"
+        Session.set('articleText', textArticle);
+    }
 });
 
 Template.details.helpers({
-  'title' : function(){
-    return Session.get('title');
-  },
-
-  'url' : function(){
-      return Session.get('url');
+    'title': function () {
+        return Session.get('title');
     },
 
-  'size' : function(){
-    return Session.get('size');
-  },
+    'url': function () {
+        return Session.get('url');
+    },
 
-  'sizeDiff' : function(){
-    return Session.get('sizeDiff');
-  },
-  
-  'articleText' : function(){
-    return Session.get('articleText');
-  }
+    'size': function () {
+        return Session.get('size');
+    },
+
+    'sizeDiff': function () {
+        return Session.get('sizeDiff');
+    },
+
+    'articleInfos': function () {
+        return Session.get('articleInfos');
+    }
+});
+
+Template.articleTextTemplate.helpers({
+    'articleText': function () {
+        return Session.get('articleText');
+    }
 });

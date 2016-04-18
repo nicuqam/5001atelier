@@ -6,13 +6,12 @@
 
 <template name="details">
     <span>
-        Article : '{{title}}' on {{url}}
+        Article : {{articleInfos}}
         <br>
         Size : {{size}}
         <br>
         SizeDiff : {{sizeDiff}}
         <br>
-
     </span>
 </template>
 
@@ -20,9 +19,7 @@
 <!--//LE TEMPLATE NE SE REMPLI PAS DE LA VALEUR DÉSIRÉE///////////-->
 <template name="articleTextTemplate">
         <span>
-            <br>
             {{articleText}}
-            <br>
         </span>
 </template>
 <!--//////////////////////////////////////////////////////////////-->
