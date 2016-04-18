@@ -28,6 +28,9 @@ Template.article.events({
     //////////////////////////////////////////////////////////////
     //////////////////////////////////////////////////////////////
     
+    
+    //Appel de méthode permettant de faire le diff-match-patch de la révision 
+    //sélectionnée et son parent
     Meteor.call('selectArticle', Articles.findOne(this._id).revId, function(error, result) {
       console.log(result);
       //Session.set('articleText', result);
