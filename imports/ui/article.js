@@ -10,7 +10,7 @@ if (Meteor.isClient){
   Session.setDefault("url", "");
   Session.setDefault("size", "");
   Session.setDefault("sizeDiff","");
-  Session.setDefault("articleText","");
+  Session.setDefault("articleText", "");
 }
 
 Template.article.events({
@@ -22,8 +22,17 @@ Template.article.events({
     Session.set('size', activeArticle.size);
     Session.set('sizeDiff', activeArticle.sizeDiff);
     
-    Session.set('articleText', Meteor.call('selectArticle', Articles.findOne(this._id).revId));
-    console.log(Meteor.call('selectArticle', Articles.findOne(this._id).revId));
+    //////////////////////////////////////////////////////////////
+    //LE TEMPLATE NE SE REMPLI PAS DE LA VALEUR DÉSIRÉE///////////
+    Session.set('articleText', "TEST article");
+    //////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////
+    
+    Meteor.call('selectArticle', Articles.findOne(this._id).revId, function(error, result) {
+      console.log(result);
+      //Session.set('articleText', result);
+    });
+    
   }
 });
 
@@ -45,6 +54,6 @@ Template.details.helpers({
   },
   
   'articleText' : function(){
-      return Session.get('articleText');
+    return Session.get('articleText');
   }
 });

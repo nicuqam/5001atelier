@@ -102,6 +102,8 @@ if (Meteor.isServer) {
             
             analysisTable = Meteor.call('getDiff', oldText, newText);
             console.log(analysisTable);
+            
+            return analysisTable;
         },
         
         

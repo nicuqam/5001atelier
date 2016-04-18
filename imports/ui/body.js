@@ -25,7 +25,11 @@ Template.body.events({
     Session.set('size', "");
     Session.set('sizeDiff', "");
     
+    //////////////////////////////////////////////////////////////
+    //LE TEMPLATE NE SE REMPLI PAS DE LA VALEUR DÉSIRÉE///////////
     Session.set('articleText', "");
+    //////////////////////////////////////////////////////////////
+    //////////////////////////////////////////////////////////////
 
     var user = $("#user").val().trim();
     var url = $("#url").val().trim();
