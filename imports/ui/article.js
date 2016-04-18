@@ -29,16 +29,19 @@ Template.article.events({
         Session.set('sizeDiff', activeArticle.sizeDiff);
 
         //Affichage de l'article
-        Meteor.call('selectArticle', Articles.findOne(this._id).revId, function (error, result) {
-            console.log(result);
+        Meteor.call('selectArticle', Articles.findOne(this._id).revId, function (error, textArticle) {
+            console.log(textArticle);
+            
+            //textArticle = "test article à changer par méthode qui renvoie le dit texte"
+            Session.set('articleText', textArticle);
             //Session.set('articleText', result);
         });
 
         /////////////////////////////
         //C'EST ICI QUE ÇA SE PASSE//
         /////////////////////////////
-        var textArticle = "test article à changer par méthode qui renvoie le dit texte"
-        Session.set('articleText', textArticle);
+        //textArticle = "test article à changer par méthode qui renvoie le dit texte"
+        //Session.set('articleText', textArticle);
     }
 });
 
