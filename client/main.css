@@ -127,6 +127,15 @@ header .hide-completed {
   }
 }
 
+/*A Refaire*/
+#article_container.content.active {
+  max-width: 812px;
+  padding: 10px 10px;
+  margin: 0 auto;
+  min-height: 100%;
+  background: white; 
+}
+
 #container{
     margin: auto;
 }
