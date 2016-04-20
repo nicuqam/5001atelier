@@ -8,7 +8,7 @@ import './body.html';
 Template.body.helpers({
   articles() {
     // Show newest tasks at the top
-    return Articles.find({}, { sort: { createdAt: -1 } });
+    return Articles.find({}, { sort: { timestamp: -1 } });
   },
 });
 
