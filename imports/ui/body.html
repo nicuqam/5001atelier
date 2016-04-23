@@ -1,5 +1,6 @@
 <body>
 <div class="container">
+
     <header>
         <h3>GRISOU</h3>
         <h1>Continuous review reporter vApril2016</h1>
@@ -21,7 +22,6 @@
                     <li class="tab-title active"><a href="#list_articles">Articles</a></li>
                     <li class="tab-title"><a href="#list_talks">Talks</a></li>
                 </ul>
-
                 <div class="tabs-content">
                     <div class="content active" id="list_articles">
                         <div id="articles">
@@ -32,7 +32,6 @@
                             </ul>
                         </div>
                     </div>
-
                     <div class="content" id="list_talks">
                         <div id="talks">Test Talk</div>
                     </div>
@@ -46,16 +45,9 @@
                     <li class="tab-title active"><a href="#detail_container">Details</a></li>
                     <li class="tab-title"><a href="#article_container">Article</a></li>
                 </ul>
-
                 <div class="tabs-content">
                     <div class="content active" id="detail_container">{{>details}}</div>
-                    
-                    <!--//////////////////////////////////////////////////////////////-->
-                    <!--//LE TEMPLATE NE SE REMPLI PAS DE LA VALEUR DÉSIRÉE///////////-->
                     <div class="content" id="article_container">{{>articleTextTemplate}}</div>
-                    <!--//////////////////////////////////////////////////////////////-->
-                    <!--//////////////////////////////////////////////////////////////-->
-                    
                 </div>
             </div>
         </div>

@@ -13,6 +13,7 @@ if (Meteor.isClient) {
     Session.setDefault('sizeDiff', "");
     Session.setDefault('articleInfos', "");
     Session.setDefault('articleText', "");
+    Session.setDefault('timestamp', "");
 }
 
 Template.article.events({
@@ -27,6 +28,7 @@ Template.article.events({
 
         Session.set('size', activeArticle.size);
         Session.set('sizeDiff', activeArticle.sizeDiff);
+        Session.set('timestamp', activeArticle.timestamp);
 
         //Affichage de l'article
         Meteor.call('selectArticle', Articles.findOne(this._id).revId, function (error, textArticle) {
@@ -64,6 +66,10 @@ Template.details.helpers({
 
     'articleInfos': function () {
         return Session.get('articleInfos');
+    },
+
+    'timestamp': function () {
+        return Session.get('timestamp');
     }
 });
 
