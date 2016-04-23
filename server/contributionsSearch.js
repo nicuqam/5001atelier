@@ -9,8 +9,6 @@ if (Meteor.isServer) {
             */
             Articles.remove({});
 
-            console.log("TEST1Server");
-
             console.log(user);
             console.log(url);
 
@@ -30,23 +28,54 @@ if (Meteor.isServer) {
 
             });
 
-            console.log("TEST4Server");
             console.log(response.data.query.usercontribs.length);
 
             if (response.data.query.usercontribs.length > 0) {
+                
+                /*
+                //console.log("\n******DATA CONTINUE 1********");
+                //console.log(response);
+                //console.log(response.data);
+                //console.log(response.data.query);
+                //console.log("\n******REPONSE CONTRIBUTION 1********");
+                //console.log(response.data.query.usercontribs);
+                
+                
+                
+                response2 = HTTP.get(url, {
+                params: {
+                    "action": "query",
+                    "list": "usercontribs",
+                    "format": "json",
+                    "uclimit": 10,
+                    "ucuser": user,
+                    "ucdir": "older",
+                    "ucnamespace": 0,
+                    "ucprop": "ids|title|timestamp|comment|size|sizediff",
+                    "converttitles": "",
+                    "continue": response.data.continue.continue,
+                    "uccontinue": response.data.continue.uccontinue
+                  }
+
+                });
+                
+                console.log("\n******DATA CONTINUE 2********");
+                console.log(response2.data);
+                
+                console.log("\n******REPONSE CONTRIBUTION 2********");
+                console.log(response2.data.query.usercontribs);
+                */
+                
                 console.log(response.data.query.usercontribs);
                 Meteor.call('buildArticles', url, response.data.query.usercontribs);
                 
-                ////////////////////////////////////////////////////////////////////////////////
-                //Le revId est harcoded présentement. Besoin de modif pour rendre le client maître de la redId qui va être affichée.
-                ////////////////////////////////////////////////////////////////////////////////
-                //Meteor.call('selectArticle', 713927272);
             }
 
             //return response.data.query.usercontribs;
 
-            //Pour obtenir les objets de contributions, il faut faire response.data.query.usercontribs
         },
+        
+        //Requete vers API pour obtenir les 10 prochaines contributions
 
         //Construction de la BD d'objets
         'buildArticles': function (url, searchResults) {
