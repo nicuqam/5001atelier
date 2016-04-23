@@ -13,34 +13,61 @@ Template.body.helpers({
 });
 
 if (Meteor.isClient){
-Template.body.events({
+  
+  continueParam = null;
+  uccontinueParam = null;
+  
+  user = null;
+  url = null;
 
-  'submit .search, click button#search'(event) {
-    // Prevent default browser form submit
-    event.preventDefault();
+  Template.body.events({ 
+  
+    'submit .search, click button#search'(event) {
+      // Prevent default browser form submit
+      event.preventDefault();
 
-    //Reset of the details
-    Session.set('title', "");
-    Session.set('url', "");
-    Session.set('articleInfos', "");
-    Session.set('size', "");
-    Session.set('sizeDiff', "");
-    Session.set('articleText', "");
+      continueParam = null;
+      uccontinueParam = null;
 
-    var user = $("#user").val().trim();
-    var url = $("#url").val().trim();
+      //Reset of the details
+      Session.set('title', "");
+      Session.set('url', "");
+      Session.set('articleInfos', "");
+      Session.set('size', "");
+      Session.set('sizeDiff', "");
+      Session.set('articleText', "");
 
-    //////////////////////////////////////////////////////////////////////////////
-    //LOGIQUE de code a refaire pour determiner l'adresse de l'API du lien du site
-    if( url != "http://en.wikipedia.org") {
-      url = "http://wiki.grisou.ca";
-    } else {
-      url = url + "/w/api.php";
-    }
-    //////////////////////////////////////////////////////////////////////////////
+      user = $("#user").val().trim();
+      url = $("#url").val().trim();
 
-    var result = Meteor.call('searchContributions', user, url);
-  },
+      //////////////////////////////////////////////////////////////////////////////
+      //LOGIQUE de code a refaire pour determiner l'adresse de l'API du lien du site
+      if( url != "http://en.wikipedia.org") {
+        url = "http://wiki.grisou.ca";
+      } else {
+        url = url + "/w/api.php";
+      }
+      //////////////////////////////////////////////////////////////////////////////
+
+      console.log(continueParam);
+      console.log(uccontinueParam);
+      
+      var result = Meteor.call('searchContributions', user, url, continueParam, uccontinueParam, function(error, newContinueParams) {
+        continueParam = newContinueParams[0];
+        uccontinueParam = newContinueParams[1];
+        
+      });
+    },
+  
+  'click button#loadMore' (event) {
+    console.log(continueParam);
+    console.log(uccontinueParam);
+      result = Meteor.call('searchContributions', user, url, continueParam, uccontinueParam, function(error, newContinueParams) {
+        continueParam = newContinueParams[0];
+        uccontinueParam = newContinueParams[1];
+      });
+      
+  }
 
           /*'click button#advSearch': function () {
               console.log("Advanced Search");

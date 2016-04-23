@@ -2,16 +2,34 @@ import { Articles } from '../imports/api/articles.js';
 
 if (Meteor.isServer) {
     Meteor.methods({
-        'searchContributions': function (user, url) {
+        'searchContributions': function (user, url, continueParam, uccontinueParam) {
 
             /*
             À MODIFIER RAPIDEMENT : WIPE DE LA BD À CHAQUE RECHERCHE
             */
-            Articles.remove({});
-
-            console.log(user);
-            console.log(url);
-
+           
+          console.log(user);
+          console.log(url); 
+          
+          if(continueParam === null) {
+            Articles.remove({});  
+            
+            response = HTTP.get(url, {
+                params: {
+                    "action": "query",
+                    "list": "usercontribs",
+                    "format": "json",
+                    "uclimit": 10,
+                    "ucuser": user,
+                    "ucdir": "older",
+                    "ucnamespace": 0,
+                    "ucprop": "ids|title|timestamp|comment|size|sizediff",
+                    "converttitles": ""
+                }
+            });
+            
+          } else {
+            
             response = HTTP.get(url, {
                 params: {
                     "action": "query",
@@ -23,25 +41,32 @@ if (Meteor.isServer) {
                     "ucnamespace": 0,
                     "ucprop": "ids|title|timestamp|comment|size|sizediff",
                     "converttitles": "",
-                    "continue": ""
+                    "continue": continueParam,
+                    "uccontinue": uccontinueParam
                 }
-
             });
+            
+          }
 
-            console.log(response.data.query.usercontribs.length);
-
-            if (response.data.query.usercontribs.length > 0) {
+            
+          if (response.data.query.usercontribs.length > 0) {
+              
+              if(typeof response.data.continue !== 'undefined') {
+                continueParam = response.data.continue.continue;
+                uccontinueParam = response.data.continue.uccontinue;
+              }
                 
                 /*
-                //console.log("\n******DATA CONTINUE 1********");
+                console.log("\n******LOG response.data 1********");
                 //console.log(response);
-                //console.log(response.data);
-                //console.log(response.data.query);
-                //console.log("\n******REPONSE CONTRIBUTION 1********");
+                console.log(response.data);
+                console.log("\n******LOG response.data.query 1********");
+                console.log(response.data.query);
+                console.log("\n******LOG response.data.usercontribs********");
                 //console.log(response.data.query.usercontribs);
                 
                 
-                
+                /*
                 response2 = HTTP.get(url, {
                 params: {
                     "action": "query",
@@ -71,7 +96,10 @@ if (Meteor.isServer) {
                 
             }
 
-            //return response.data.query.usercontribs;
+            console.log(continueParam);
+            console.log(uccontinueParam);
+            
+            return [continueParam, uccontinueParam];
 
         },
         
