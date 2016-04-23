@@ -48,58 +48,29 @@ if (Meteor.isServer) {
             
           }
 
-            
-          if (response.data.query.usercontribs.length > 0) {
+          
+          if( (typeof response.data.error === 'undefined') 
+                    && response.data.query.usercontribs.length > 0) {
               
-              if(typeof response.data.continue !== 'undefined') {
+              if (typeof response.data.continue !== 'undefined') {
                 continueParam = response.data.continue.continue;
                 uccontinueParam = response.data.continue.uccontinue;
               }
-                
-                /*
-                console.log("\n******LOG response.data 1********");
-                //console.log(response);
-                console.log(response.data);
-                console.log("\n******LOG response.data.query 1********");
-                console.log(response.data.query);
-                console.log("\n******LOG response.data.usercontribs********");
-                //console.log(response.data.query.usercontribs);
-                
-                
-                /*
-                response2 = HTTP.get(url, {
-                params: {
-                    "action": "query",
-                    "list": "usercontribs",
-                    "format": "json",
-                    "uclimit": 10,
-                    "ucuser": user,
-                    "ucdir": "older",
-                    "ucnamespace": 0,
-                    "ucprop": "ids|title|timestamp|comment|size|sizediff",
-                    "converttitles": "",
-                    "continue": response.data.continue.continue,
-                    "uccontinue": response.data.continue.uccontinue
-                  }
 
-                });
+              console.log(response.data.query.usercontribs);
+              Meteor.call('buildArticles', url, response.data.query.usercontribs);
                 
-                console.log("\n******DATA CONTINUE 2********");
-                console.log(response2.data);
-                
-                console.log("\n******REPONSE CONTRIBUTION 2********");
-                console.log(response2.data.query.usercontribs);
-                */
-                
-                console.log(response.data.query.usercontribs);
-                Meteor.call('buildArticles', url, response.data.query.usercontribs);
-                
-            }
-
-            console.log(continueParam);
-            console.log(uccontinueParam);
+          } else {
             
-            return [continueParam, uccontinueParam];
+            continueParam = null;
+            uccontinueParam = null;
+            
+          };
+
+          console.log(continueParam);
+          console.log(uccontinueParam);
+            
+          return [continueParam, uccontinueParam];
 
         },
         

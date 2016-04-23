@@ -53,18 +53,35 @@ if (Meteor.isClient){
       console.log(uccontinueParam);
       
       var result = Meteor.call('searchContributions', user, url, continueParam, uccontinueParam, function(error, newContinueParams) {
-        continueParam = newContinueParams[0];
-        uccontinueParam = newContinueParams[1];
+        
+        if (newContinueParams[0]!== null) {
+          continueParam = newContinueParams[0];
+          uccontinueParam = newContinueParams[1];
+          
+          document.getElementById("loadMoreResults").className = "inline enabled";
+        } else {
+          document.getElementById("loadMoreResults").className = "hide disabled";
+        }
+        
         
       });
     },
   
-  'click button#loadMore' (event) {
+  'click button#loadMoreResults' (event) {
     console.log(continueParam);
     console.log(uccontinueParam);
+    
       result = Meteor.call('searchContributions', user, url, continueParam, uccontinueParam, function(error, newContinueParams) {
-        continueParam = newContinueParams[0];
-        uccontinueParam = newContinueParams[1];
+        
+        if (typeof newContinueParams[0] !== 'undefined') {
+          continueParam = newContinueParams[0];
+          uccontinueParam = newContinueParams[1];
+        } else {
+          document.getElementById("loadMoreResults").className = "hide disabled";
+        }
+        
+        
+        
       });
       
   }
