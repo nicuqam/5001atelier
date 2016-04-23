@@ -1,5 +1,5 @@
 import { Articles } from '../imports/api/articles.js';
-
+// Dans la prochaine version, insertion du valeur seq_pk
 if (Meteor.isServer) {
     Meteor.methods({
         'searchContributions': function (user, url, continueParam, uccontinueParam) {
