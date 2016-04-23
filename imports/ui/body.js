@@ -42,10 +42,10 @@ if (Meteor.isClient){
 
       //////////////////////////////////////////////////////////////////////////////
       //LOGIQUE de code a refaire pour determiner l'adresse de l'API du lien du site
-      if( url != "http://en.wikipedia.org") {
-        url = "http://wiki.grisou.ca";
-      } else {
+      if( url == "http://en.wikipedia.org") {
         url = url + "/w/api.php";
+      } else {
+        url = url + "/api.php";
       }
       //////////////////////////////////////////////////////////////////////////////
 
