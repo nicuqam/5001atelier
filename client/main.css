@@ -71,6 +71,16 @@ ul {
   background: white;
 }
 
+.panel {
+  max-height: calc(100vh - 500px);
+  overflow-y: scroll;
+}
+
+.articleText {
+  max-height: calc(100vh - 500px);
+  overflow-y: scroll;
+}
+
 .delete {
   float: right;
   font-weight: bold;
