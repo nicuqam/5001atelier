@@ -1,5 +1,5 @@
 import { Articles } from '../imports/api/articles.js';
-// Dans la prochaine version, insertion du valeur seq_pk
+
 if (Meteor.isServer) {
     Meteor.methods({
         'searchContributions': function (user, url, continueParam, uccontinueParam) {
@@ -77,11 +77,11 @@ if (Meteor.isServer) {
         //Requete vers API pour obtenir les 10 prochaines contributions
 
         //Construction de la BD d'objets
-        'buildArticles': function (url, searchResults) {
+        'buildArticles': function (url, response) {
             console.log("buildArticles start")
 
-            for (i = 0; i < searchResults.length; i++) {
-                var result = searchResults[i];
+            for (i = 0; i < response.length; i++) {
+                var result = response[i];
                 var userId = result.userid;
                 var user = result.user;
                 var pageId = result.pageid;
@@ -111,6 +111,8 @@ if (Meteor.isServer) {
                 });
             }
         },
+
+        // Selection des articles
 
         'selectArticle': function(revisionID) {
             console.log("selectArticle start");
