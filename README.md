@@ -1,1 +1,2 @@
-http://soren-ohnmeiss.developpez.com/tutoriels/javascript/meteor/introduction-meteor/
+• Cette branche explore la création d'un talk (pour le moment)
+~~ Changement Cosmetique ~~

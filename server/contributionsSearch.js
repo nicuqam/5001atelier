@@ -8,12 +8,16 @@ if (Meteor.isServer) {
             À MODIFIER RAPIDEMENT : WIPE DE LA BD À CHAQUE RECHERCHE
             */
            
-          console.log(user);
-          console.log(url); 
-          
+          console.log('La valeur de "user": '+ user);
+          console.log('La valeur de "url": '+ url); 
+          console.log('La valeur de "continueParam": ' + continueParam); 
+
+          // Remplissage de la variable "response" des données de la nouvelle requête à l'API du wiki
+
           if(continueParam === null) {
+              // Pour vider les paramètres déjà en place
             Articles.remove({});  
-            
+            // Insert les nouveaux paramètre pour la nouvelle demande HTTP get
             response = HTTP.get(url, {
                 params: {
                     "action": "query",
@@ -48,7 +52,7 @@ if (Meteor.isServer) {
             
           }
 
-          
+          // Fonction qui va chercher les valeurs pour les paramètres "continue" et "uccontinue"
           if( (typeof response.data.error === 'undefined') 
                     && response.data.query.usercontribs.length > 0) {
               
