@@ -15,8 +15,10 @@ if (Meteor.isServer) {
           // Remplissage de la variable "response" des données de la nouvelle requête à l'API du wiki
 
           if(continueParam === null) {
+
               // Pour vider les paramètres déjà en place
             Articles.remove({});  
+
             // Insert les nouveaux paramètre pour la nouvelle demande HTTP get
             response = HTTP.get(url, {
                 params: {
@@ -60,8 +62,10 @@ if (Meteor.isServer) {
                 continueParam = response.data.continue.continue;
                 uccontinueParam = response.data.continue.uccontinue;
               }
+             console.log('Affichage de "response.data.query.usercontribs": '  + "\n" );
+             console.log( response.data.query.usercontribs);
+             console.log("\n" );
 
-              console.log(response.data.query.usercontribs);
               Meteor.call('buildArticles', url, response.data.query.usercontribs);
                 
           } else {
@@ -71,7 +75,11 @@ if (Meteor.isServer) {
             
           };
 
-          console.log(continueParam);
+          console.log(' Affichage de "continueParam": ');
+          console.log( continueParam);
+
+
+          console.log(' Affichage de "uncontinueParam": ');
           console.log(uccontinueParam);
             
           return [continueParam, uccontinueParam];
@@ -135,14 +143,15 @@ if (Meteor.isServer) {
                                                     Articles.findOne({ revId: revisionID}).parentId);
             
             analysisTable = Meteor.call('getDiff', oldText, newText);
-            console.log(analysisTable);
+            console.log(' Affichage de "analysisTable": ' +" \n");
+            console.log( analysisTable);
             
             return analysisTable;
         },
         
         
         'getArticleText': function (url, revisionID) {
-            console.log("getArticleText");
+            console.log("getArticleText start");
             
             response = HTTP.get(url, {
                 params: {
